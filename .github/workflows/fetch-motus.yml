@@ -67,9 +67,7 @@ jobs:
             recv <- tagme(
               'CTT-V3023D415E26',
               new = !file.exists('data/CTT-V3023D415E26.motus'),
-              dir = 'data/',
-              user = Sys.getenv('MOTUS_USER'),
-              password = Sys.getenv('MOTUS_PASS')
+              dir = 'data/'
             )
 
             detections <- tbl(recv, 'alltags') %>%
