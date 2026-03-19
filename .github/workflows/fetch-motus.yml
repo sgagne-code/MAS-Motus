@@ -1,0 +1,85 @@
+name: Fetch MAS Motus Receiver Data
+
+on:
+  schedule:
+    # Daily during spring migration (March 20 - May 31)
+    - cron: '0 6 * 3-5 *'
+    # Daily during fall migration (August 1 - November 15)
+    - cron: '0 6 * 8-10 *'
+    - cron: '0 6 1-15 11 *'
+    # Weekly (Sunday) during off-season (December - March 19, June - July)
+    - cron: '0 6 * 12 0'
+    - cron: '0 6 1-19 3 0'
+    - cron: '0 6 * 6-7 0'
+  workflow_dispatch:
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+
+      - name: Install dependencies
+        run: |
+          Rscript -e "install.packages(
+            c('motus', 'dplyr', 'jsonlite'),
+            repos = c(
+              birdscanada = 'https://birdscanada.r-universe.dev',
+              CRAN = 'https://cloud.r-project.org'
+            )
+          )"
+
+      - name: Fetch and export detections
+        env:
+          MOTUS_USER: ${{ secrets.MOTUS_USER }}
+          MOTUS_PASS: ${{ secrets.MOTUS_PASS }}
+        run: |
+          Rscript -e "
+            library(motus)
+            library(dplyr)
+            library(jsonlite)
+
+            # Authenticate and download receiver data
+            recv <- tagme(
+              'YOUR-RECEIVER-SERNO',
+              new = !file.exists('data/CTT-V3023D415E26.motus'),
+              dir = 'data/',
+              user = Sys.getenv('MOTUS_USER'),
+              password = Sys.getenv('MOTUS_PASS')
+            )
+
+            # Pull detections, filter false detections, select fields
+            detections <- tbl(recv, 'alltags') %>%
+              filter(motusFilter == 1) %>%
+              select(
+                date = ts,
+                commonName = speciesEN,
+                scientificName = speciesSci,
+                tagId = mfgID,
+                project = projectName
+              ) %>%
+              collect() %>%
+              mutate(date = as.POSIXct(date, origin = '1970-01-01', tz = 'UTC')) %>%
+              arrange(desc(date)) %>%
+              slice_head(n = 25)
+
+            # Build final JSON
+            output <- list(
+              updated = format(Sys.time(), '%Y-%m-%dT%H:%M:%SZ', tz = 'UTC'),
+              detections = detections
+            )
+
+            dir.create('data', showWarnings = FALSE)
+            write_json(output, 'data/latest_detections.json', pretty = TRUE, auto_unbox = TRUE)
+          "
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/latest_detections.json
+          git commit -m "Update Motus detections $(date -u '+%Y-%m-%d %H:%M UTC')" || echo "No changes to commit"
+          git push
