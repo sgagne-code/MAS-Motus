@@ -65,6 +65,9 @@ jobs:
             library(jsonlite)
 
             dir.create('data', showWarnings = FALSE)
+
+            options(motus.userLogin = Sys.getEnv('MOTUS_USER')
+            options(motus.userPassword = Sys.getEnv('MOTUS_PASS')
             
             recv <- tagme(
               'CTT-V3023D415E26',
