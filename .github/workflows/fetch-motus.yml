@@ -2,15 +2,14 @@ name: Fetch MAS Motus Receiver Data
 
 on:
   schedule:
-    # Daily during spring migration (March 20 - May 31)
-    - cron: '0 6 * 3-5 *'
-    # Daily during fall migration (August 1 - November 15)
-    - cron: '0 6 * 8-10 *'
-    - cron: '0 6 1-15 11 *'
-    # Weekly (Sunday) during off-season (December - March 19, June - July)
-    - cron: '0 6 * 12 0'
-    - cron: '0 6 1-19 3 0'
-    - cron: '0 6 * 6-7 0'
+      # Weekly (Sunday) during spring migration (March 20 - May 31)
+      - cron: '0 6 * 3-5 0'
+      # Weekly (Sunday) during fall migration (August - November)
+      - cron: '0 6 * 8-11 0'
+      # Monthly (1st of month) during off-season (December, January, February, June, July)
+      - cron: '0 6 1 12 *'
+      - cron: '0 6 1 1-2 *'
+      - cron: '0 6 1 6-7 *'
   workflow_dispatch:
 
 jobs:
@@ -72,7 +71,7 @@ jobs:
             recv <- tagme(
               'CTT-V3023D415E26',
               new = !file.exists('data/CTT-V3023D415E26.motus'),
-              uodate = TRUE,
+              update = TRUE,
               dir = 'data/'
             )
 
