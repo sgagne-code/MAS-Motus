@@ -72,11 +72,10 @@ jobs:
             library(jsonlite)
             
             Sys.setenv(TZ = 'UTC')
-
-            motusLogout()
-            Motus$userLogin <- Sys.getenv('MOTUS_USER')
-            Motus$userPassword <- Sys.getenv('MOTUS_PASS')
-            srvAuth()
+          
+            # motusLogout()
+            Motus\$userLogin <- Sys.getenv('MOTUS_USER')
+            Motus\$userPassword <- Sys.getenv('MOTUS_PASS')
             
             dir.create('data', showWarnings = FALSE)
             
