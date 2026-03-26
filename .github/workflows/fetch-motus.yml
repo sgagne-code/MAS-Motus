@@ -53,6 +53,14 @@ jobs:
             )
           )"
 
+      - name: Set up .Renviron
+        env:
+          MOTUS_USER: ${{ secrets.MOTUS_USER }}
+          MOTUS_PASS: ${{ secrets.MOTUS_PASS }}
+        run: |
+          echo "MOTUS_USER=$MOTUS_USER" >> ~/.Renviron
+          echo "MOTUS_PASS=$MOTUS_PASS" >> ~/.Renviron
+
       - name: Fetch and export detections
         env:
           MOTUS_USER: ${{ secrets.MOTUS_USER }}
@@ -68,6 +76,7 @@ jobs:
             motusLogout()
             Motus$userLogin <- Sys.getenv('MOTUS_USER')
             Motus$userPassword <- Sys.getenv('MOTUS_PASS')
+            srvAuth()
             
             dir.create('data', showWarnings = FALSE)
             
