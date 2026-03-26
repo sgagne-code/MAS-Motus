@@ -87,6 +87,10 @@ jobs:
 
             new_detections <- tbl(recv, 'alltags') %>%
               filter(motusFilter == 1) %>%
+              collect() %>%
+              group_by(runID) %>%
+              slice_min(ts, n = 1) %>%
+              ungroup() %>%
               select(
                 date = ts,
                 commonName = speciesEN,
@@ -98,7 +102,6 @@ jobs:
                 tagDepLat = tagDepLat,
                 tagDepLon = tagDepLon
               ) %>%
-              collect() %>%
               mutate(
                 date = as.POSIXct(date, origin = '1970-01-01', tz = 'UTC'),
                 date = format(date, '%Y-%m-%dT%H:%M:%SZ'),
