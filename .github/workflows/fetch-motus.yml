@@ -89,26 +89,45 @@ jobs:
               dir = 'data/'
             )
 
-            detections <- tbl(recv, 'alltags') %>%
+            new_detections <- tbl(recv, 'alltags') %>%
               filter(motusFilter == 1) %>%
               select(
                 date = ts,
                 commonName = speciesEN,
                 scientificName = speciesSci,
                 tagId = mfgID,
-                project = projectName
+                project = projectName,
+                sex = sex,
+                age = age,
+                tagDepLat = tagDepLat,
+                tagDepLon = tagDepLon
               ) %>%
               collect() %>%
-              mutate(date = as.POSIXct(date, origin = '1970-01-01', tz = 'UTC')) %>%
-              arrange(desc(date)) %>%
-              slice_head(n = 25)
+              mutate(
+                date = as.POSIXct(date, origin = '1970-01-01', tz = 'UTC'),
+                date = format(date, '%Y-%m-%dT%H:%M:%SZ'),
+                id = paste0(tagId, '_', date),
+                locationName = NA
+              )
+
+            existing_path <- 'data/latest_detections.json'
+            if (file.exists(existing_path)) {
+              existing <- fromJSON(existing_path, flatten = TRUE)
+              existing_detections <- as.data.frame(existing\$detections)
+              combined <- bind_rows(existing_detections, new_detections) %>%
+                distinct(id, .keep_all = TRUE) %>%
+                arrange(desc(date))
+            } else {
+              combined <- new_detections %>%
+                arrange(desc(date))
+            }
 
             output <- list(
               updated = format(Sys.time(), '%Y-%m-%dT%H:%M:%SZ', tz = 'UTC'),
-              detections = detections
+              detections = combined
             )
-            
-            write_json(output, 'data/latest_detections.json', pretty = TRUE, auto_unbox = TRUE)
+
+            write_json(output, existing_path, pretty = TRUE, auto_unbox = TRUE, na = 'null')
           "
 
       - name: Commit and push
