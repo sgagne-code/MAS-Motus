@@ -1,40 +1,70 @@
 {
-  "updated": "2026-03-26T18:38:27Z",
+  "updated": "2026-03-26T06:00:00Z",
   "detections": [
     {
+      "id": "CTT-1234_2025-10-10T02:14:33Z",
       "date": "2025-10-10T02:14:33Z",
       "commonName": "Yellow-rumped Warbler",
       "scientificName": "Setophaga coronata",
       "tagId": "CTT-1234",
-      "project": "Atlantic Flyway Warbler Study"
+      "project": "Atlantic Flyway Warbler Study",
+      "sex": "M",
+      "age": "Adult",
+      "tagDepLat": 43.651,
+      "tagDepLon": -79.383,
+      "locationName": null
     },
     {
+      "id": "CTT-5678_2025-10-09T23:47:11Z",
       "date": "2025-10-09T23:47:11Z",
       "commonName": "Swainson's Thrush",
       "scientificName": "Catharus ustulatus",
       "tagId": "CTT-5678",
-      "project": "Thrush Migration Network"
+      "project": "Thrush Migration Network",
+      "sex": "F",
+      "age": "Juvenile",
+      "tagDepLat": 45.421,
+      "tagDepLon": -75.697,
+      "locationName": null
     },
     {
+      "id": "SG-9012_2025-10-09T21:03:55Z",
       "date": "2025-10-09T21:03:55Z",
       "commonName": "American Woodcock",
       "scientificName": "Scolopax minor",
       "tagId": "SG-9012",
-      "project": "Woodcock Migration Study"
+      "project": "Woodcock Migration Study",
+      "sex": null,
+      "age": "Adult",
+      "tagDepLat": 44.986,
+      "tagDepLon": -93.258,
+      "locationName": null
     },
     {
+      "id": "CTT-3456_2025-10-08T18:22:40Z",
       "date": "2025-10-08T18:22:40Z",
       "commonName": "Black-throated Blue Warbler",
       "scientificName": "Setophaga caerulescens",
       "tagId": "CTT-3456",
-      "project": "Atlantic Flyway Warbler Study"
+      "project": "Atlantic Flyway Warbler Study",
+      "sex": "M",
+      "age": null,
+      "tagDepLat": 46.813,
+      "tagDepLon": -71.208,
+      "locationName": null
     },
     {
+      "id": "SG-7890_2025-10-07T03:58:17Z",
       "date": "2025-10-07T03:58:17Z",
       "commonName": "Common Nighthawk",
       "scientificName": "Chordeiles minor",
       "tagId": "SG-7890",
-      "project": "Nightjar Migration Network"
+      "project": "Nightjar Migration Network",
+      "sex": null,
+      "age": null,
+      "tagDepLat": 38.895,
+      "tagDepLon": -77.037,
+      "locationName": null
     }
   ]
 }
