@@ -39,9 +39,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ hashFiles('**/DESCRIPTION') }}
+          key: ${{ runner.os }}-r-motus-v1
           restore-keys: |
-            ${{ runner.os }}-r-
+            ${{ runner.os }}-r-motus-
 
       - name: Install R dependencies
         run: |
