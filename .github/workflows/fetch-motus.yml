@@ -18,6 +18,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Install system dependencies
         run: |
@@ -80,8 +82,8 @@ jobs:
 
             recv <- tagme(
               'CTT-V3023D415E26',
-              new = !file.exists('data/CTT-V3023D415E26.motus'),
-              update = TRUE,
+              new = FALSE,
+              update = FALSE,
               dir = 'data/'
             )
 
