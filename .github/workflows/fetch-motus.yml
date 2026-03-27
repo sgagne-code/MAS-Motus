@@ -70,12 +70,12 @@ jobs:
             library(motus)
             library(dplyr)
             library(jsonlite)
-            
+
             Sys.setenv(TZ = 'UTC')
-          
+
             motus:::sessionVariable(name = 'userLogin', val = Sys.getenv('MOTUS_USER'))
             motus:::sessionVariable(name = 'userPassword', val = Sys.getenv('MOTUS_PASS'))
-            
+
             dir.create('data', showWarnings = FALSE)
 
             recv <- tagme(
@@ -85,18 +85,25 @@ jobs:
               dir = 'data/'
             )
 
+            metadata(recv)
+
+            tag_deps <- tbl(recv, 'tagDeps') %>%
+              collect() %>%
+              select(deployID, sex, age)
+
             new_detections <- tbl(recv, 'alltags') %>%
               filter(motusFilter == 1) %>%
               collect() %>%
               group_by(runID) %>%
               slice_min(ts, n = 1) %>%
               ungroup() %>%
+              left_join(tag_deps, by = c('tagDeployID' = 'deployID')) %>%
               select(
                 date = ts,
                 commonName = speciesEN,
                 scientificName = speciesSci,
                 tagId = mfgID,
-                project = projectName,
+                project = tagProjName,
                 sex = sex,
                 age = age,
                 tagDepLat = tagDepLat,
