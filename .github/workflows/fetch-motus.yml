@@ -21,6 +21,14 @@ jobs:
         with:
           lfs: true
 
+      - name: Pull LFS files
+        run: git lfs pull
+          
+      - name: Verify LFS file
+        run: |
+          file data/CTT-V3023D415E26.motus
+          ls -lh data/CTT-V3023D415E26.motus
+          
       - name: Install system dependencies
         run: |
           sudo apt-get update
