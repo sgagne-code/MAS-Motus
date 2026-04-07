@@ -57,7 +57,7 @@ new_detections <- tbl(recv, 'alltags') %>%
     locationName = NA
   )
 
-existing_path <- 'data/latest_detections.json'
+existing_path <- 'data/detections.json'
 
 if (file.exists(existing_path)) {
   existing_json <- fromJSON(existing_path, flatten = TRUE)
