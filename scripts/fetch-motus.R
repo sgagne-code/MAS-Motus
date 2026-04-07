@@ -93,10 +93,17 @@ reverse_geocode <- function(lat, lon) {
       httr::add_headers('User-Agent' = 'MAS-Motus/1.0 (meckbirds.org)')
     )
     addr <- fromJSON(httr::content(res, as = 'text', encoding = 'UTF-8'))$address
-    location <- if (!is.null(addr$city)) addr$city else
-                if (!is.null(addr$town)) addr$town else
-                if (!is.null(addr$village)) addr$village else
-                if (!is.null(addr$county)) addr$county else NA
+    location <- paste(
+      Filter(Negate(is.null), list(
+        if (!is.null(addr$city)) addr$city else
+        if (!is.null(addr$town)) addr$town else
+        if (!is.null(addr$village)) addr$village else
+        if (!is.null(addr$county)) addr$county else NULL,
+        if (!is.null(addr$state)) addr$state else NULL
+      )),
+      collapse = ', '
+    )
+    location <- if (nchar(location) == 0) NA else location
     geocode_cache[[key]] <<- location
     location
   }, error = function(e) NA)
