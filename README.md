@@ -49,6 +49,7 @@ MAS-Motus/
 ├── data/
 │   └── detections.json   # Processed detection data (auto-updated)
 ├── html-embeds/
+|   ├── stats.html        # Summary view embedded on the MAS site
 │   └── detections.html   # Self-contained viewer embedded on the MAS site
 └── scripts/
     └── *.R               # R scripts for fetching and processing Motus data
