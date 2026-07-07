@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    background: #FFFFFF;
-    padding: 0.5rem 1rem;
-  }
-
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .stat-card {
-  background: #ffffff;
-  border: 2.5px solid #1F6631;
-  border-radius: 8px;
-  padding: 0.85rem 1rem;
-  }
-
-  .stat-label {
-    font-size: 11px;
-    color: #27500a;/*#888780;*/
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 5px;
-  }
-
-  .stat-value {
-    font-size: 22px;
-    font-weight: 600;
-    color: #27500a;
-    line-height: 1.1;
-  }
-
-  .stat-value.stat-date {
-    font-size: 15px;
-  }
-
-  .skeleton-line {
-    background: rgba(255,255,255,0.15);
-    border-radius: 4px;
-    margin-bottom: 6px;
-    animation: pulse 1.4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  @media (max-width: 480px) {
     body {
-      padding: 0.5rem 0.75rem;
+      font-family: 'Source Sans 3', sans-serif;
+      background: #FFFFFF;
+      padding: 0.5rem 1rem;
     }
 
     .stats-bar {
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
     }
 
     .stat-card {
-      padding: 0.7rem 0.85rem;
+      background: #ffffff;
+      border: 2.5px solid #1F6631;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #27500a;/*#888780;*/
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
     }
 
     .stat-value {
-      font-size: 18px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #27500a;
+      line-height: 1.1;
     }
 
     .stat-value.stat-date {
-      font-size: 13px;
+      font-size: 15px;
     }
-  }
-</style>
+
+    .skeleton-line {
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      margin-bottom: 6px;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.5rem 0.75rem;
+      }
+
+      .stats-bar {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 0.7rem 0.85rem;
+      }
+
+      .stat-value {
+        font-size: 18px;
+      }
+
+      .stat-value.stat-date {
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 <body>
 
