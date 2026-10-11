@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T11:45:57Z",
+  "updated": "2026-10-11T12:04:17Z",
   "detections": [
     {
       "date": "2025-10-10T02:52:24Z",
@@ -27,7 +27,7 @@
       "project": "WOTHParty_MA",
       "projectId": 803,
       "sex": "M",
-      "age": "ad",
+      "age": "imm",
       "bandNumber": "2891-87143",
       "antBearing": 289,
       "tagDepLat": 42.3384,
